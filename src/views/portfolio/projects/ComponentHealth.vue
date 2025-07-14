@@ -77,10 +77,10 @@
 
       <div class="scorecard col-span-full">
         <h3 class="text-lg font-semibold mb-2">Scorecard Checks</h3>
-        <div v-if="scorecardChecks.length">
+        <div v-if="metrics.scorecardChecks.length">
           <ul class="space-y-4">
             <li
-              v-for="check in scorecardChecks"
+              v-for="check in metrics.scorecardChecks"
               :key="check.name"
               class="p-3 border rounded"
             >
@@ -119,7 +119,6 @@ export default {
   data() {
     return {
       metrics: null,
-      scorecardChecks: [],
     };
   },
   computed: {
@@ -135,14 +134,6 @@ export default {
         .get(url)
         .then((response) => {
           this.metrics = response.data;
-          try {
-            this.scorecardChecks = response.data.scorecardChecksJson
-              ? JSON.parse(response.data.scorecardChecksJson)
-              : [];
-          } catch (e) {
-            console.error('Failed to parse scorecard checks JSON', e);
-            this.scorecardChecks = [];
-          }
         })
         .catch((err) => {
           console.error('Error fetching metrics', err);
