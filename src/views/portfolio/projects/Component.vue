@@ -157,6 +157,15 @@
           v-on:total="totalVulnerabilities = $event"
         />
       </b-tab>
+      <b-tab ref="health" @click="routeTo('health')">
+        <template v-slot:title
+          ><i class="fa fa-heart"></i> {{ $t('message.health') }}
+          <b-badge :variant="badgeVariantHealth">{{
+            scoreCardScore
+          }}</b-badge></template
+        >
+        <component-health :key="this.uuid" :uuid="this.uuid" />
+      </b-tab>
     </b-tabs>
     <component-details-modal
       :component="cloneDeep(component)"
@@ -182,10 +191,12 @@ import ComponentDetailsModal from './ComponentDetailsModal';
 import ExternalReferencesDropdown from '../../components/ExternalReferencesDropdown.vue';
 import ComponentCreatePropertyModal from './ComponentCreatePropertyModal.vue';
 import ComponentPropertiesModal from './ComponentPropertiesModal.vue';
+import ComponentHealth from './ComponentHealth';
 
 export default {
   mixins: [permissionsMixin],
   components: {
+    ComponentHealth,
     ComponentCreatePropertyModal,
     ComponentPropertiesModal,
     SeverityBarChart,
@@ -222,6 +233,11 @@ export default {
 
       return label;
     },
+    badgeVariantHealth() {
+      if (this.scoreCardScore >= 7.5) return 'tab-total';
+      if (this.scoreCardScore >= 2.5) return 'tab-warn';
+      return 'tab-fail';
+    },
   },
   data() {
     return {
@@ -242,6 +258,7 @@ export default {
       currentRiskScore: 0,
       totalVulnerabilities: 0,
       totalProjects: 0,
+      scoreCardScore: 0,
     };
   },
   methods: {
@@ -317,6 +334,14 @@ export default {
       this.currentRiskScore = common.valueWithDefault(
         response.data.inheritedRiskScore,
         0,
+      );
+    });
+
+    let healthUrl = `${this.$api.BASE_URL}/${this.$api.URL_COMPONENT}/${this.uuid}/health`;
+    this.axios.get(healthUrl).then((response) => {
+      this.scoreCardScore = common.valueWithDefault(
+        response.data.scorecardScore.toFixed(1),
+        'No score',
       );
     });
 

@@ -230,6 +230,7 @@ function configRoutes() {
           alias: [
             '/components/:uuid/overview',
             '/components/:uuid/vulnerabilities',
+            '/components/:uuid/health',
           ],
           props: (route) => ({ uuid: route.params.uuid }),
           component: Component,

@@ -538,6 +538,8 @@
     "grouped_vulnerabilities": "Vulnérabilités groupées",
     "hashes": "Condensats",
     "hashes_short_desc": "Condensat (MD5, SHA, SHA3, Blake2b, Blake3)",
+    "health": "",
+    "health_no_scorecard_available": "",
     "home": "Accueil",
     "identifier": "Identifiant",
     "identifier_type": "Type d'identifiant",

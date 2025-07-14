@@ -538,6 +538,8 @@
     "grouped_vulnerabilities": "Vulnerabilidades agrupadas",
     "hashes": "Hashes",
     "hashes_short_desc": "Hash (MD5, SHA, SHA3, Blake2b, Blake3)",
+    "health": "",
+    "health_no_scorecard_available": "",
     "home": "Lar",
     "identifier": "Identificador",
     "identifier_type": "Tipo de identificador",
