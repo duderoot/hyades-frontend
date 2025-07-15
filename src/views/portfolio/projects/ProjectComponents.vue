@@ -413,6 +413,13 @@ export default {
           class: 'tight',
         },
         {
+          title: 'Scorecard',
+          field: 'scorecardScore',
+          sortable: true,
+          class: 'tight',
+          formatter: (value) => (value ? value.toFixed(1) : '-'),
+        },
+        {
           title: this.$t('message.vulnerabilities'),
           field: 'metrics',
           sortable: false,
