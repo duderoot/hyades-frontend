@@ -161,7 +161,7 @@
         <template v-slot:title
           ><i class="fa fa-heart"></i> {{ $t('message.health') }}
           <b-badge :variant="badgeVariantHealth">{{
-            scoreCardScore
+            scoreCardScore ? scoreCardScore : 'No score'
           }}</b-badge></template
         >
         <component-health :key="this.uuid" :uuid="this.uuid" />
@@ -234,6 +234,7 @@ export default {
       return label;
     },
     badgeVariantHealth() {
+      if (!this.scoreCardScore) return 'tab-info';
       if (this.scoreCardScore >= 7.5) return 'tab-total';
       if (this.scoreCardScore >= 2.5) return 'tab-warn';
       return 'tab-fail';
@@ -338,12 +339,17 @@ export default {
     });
 
     let healthUrl = `${this.$api.BASE_URL}/${this.$api.URL_COMPONENT}/${this.uuid}/health`;
-    this.axios.get(healthUrl).then((response) => {
-      this.scoreCardScore = common.valueWithDefault(
-        response.data.scorecardScore.toFixed(1),
-        'No score',
-      );
-    });
+    this.axios
+      .get(healthUrl)
+      .then((response) => {
+        this.scoreCardScore = response.data.scorecardScore.toFixed(1);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          // don't have any data
+          this.scoreCardScore = undefined;
+        }
+      });
 
     this.getTabFromRoute().active = true;
   },

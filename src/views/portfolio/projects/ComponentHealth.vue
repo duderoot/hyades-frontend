@@ -104,6 +104,10 @@
       </div>
     </div>
 
+    <div v-else-if="gotNoData" class="text-center py-10">
+      <span>No health metadata available.</span>
+    </div>
+
     <div v-else class="text-center py-10">
       <span>Loading metrics...</span>
     </div>
@@ -119,6 +123,7 @@ export default {
   data() {
     return {
       metrics: null,
+      gotNoData: false,
     };
   },
   computed: {
@@ -136,7 +141,9 @@ export default {
           this.metrics = response.data;
         })
         .catch((err) => {
-          console.error('Error fetching metrics', err);
+          if (err.response && err.response.status === 404) {
+            this.gotNoData = true;
+          }
         });
     },
   },
