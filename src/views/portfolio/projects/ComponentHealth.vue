@@ -7,59 +7,67 @@
         <dl>
           <div class="mb-2">
             <dt class="font-semibold">Package URL</dt>
-            <dd>{{ metrics.purl }}</dd>
+            <dd>{{ metrics.purl ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Stars</dt>
-            <dd>{{ metrics.stars }}</dd>
+            <dd>{{ metrics.stars ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Forks</dt>
-            <dd>{{ metrics.forks }}</dd>
+            <dd>{{ metrics.forks ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Contributors</dt>
-            <dd>{{ metrics.contributors }}</dd>
+            <dd>{{ metrics.contributors ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Weekly Commits</dt>
-            <dd>{{ metrics.commitFrequencyWeekly.toFixed(2) }}</dd>
+            <dd>{{ metrics.commitFrequencyWeekly?.toFixed(2) ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Open Issues</dt>
-            <dd>{{ metrics.openIssues }}</dd>
+            <dd>{{ metrics.openIssues ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Open PRs</dt>
-            <dd>{{ metrics.openPRs }}</dd>
+            <dd>{{ metrics.openPRs ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Last Commit</dt>
-            <dd>{{ formattedLastCommit }}</dd>
+            <dd>{{ formattedLastCommit ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Bus Factor</dt>
-            <dd>{{ metrics.busFactor }}</dd>
+            <dd>{{ metrics.busFactor ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Dependents</dt>
-            <dd>{{ metrics.dependents }}</dd>
+            <dd>{{ metrics.dependents ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Files</dt>
-            <dd>{{ metrics.files }}</dd>
+            <dd>{{ metrics.files ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Scorecard Score</dt>
-            <dd>{{ metrics.scorecardScore.toFixed(2) }}</dd>
+            <dd>{{ metrics.scorecardScore.toFixed(2) ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Average Issue Age (days)</dt>
-            <dd>{{ metrics.avgIssueAgeDays }}</dd>
+            <dd>{{ metrics.avgIssueAgeDays ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Archived</dt>
-            <dd>{{ metrics.repoArchived ? 'Yes' : 'No' }}</dd>
+            <dd>
+              {{
+                metrics.repoArchived === true
+                  ? 'Yes'
+                  : metrics.repoArchived === false
+                    ? 'No'
+                    : 'N/A'
+              }}
+            </dd>
           </div>
         </dl>
       </div>
@@ -67,17 +75,42 @@
       <div class="features">
         <h3 class="text-lg font-semibold mb-2">Repository Features</h3>
         <ul class="list-disc list-inside">
-          <li>Readme: {{ metrics.hasReadme ? '✔️' : '❌' }}</li>
-          <li>Code of Conduct: {{ metrics.hasCodeOfConduct ? '✔️' : '❌' }}</li>
           <li>
-            Security Policy: {{ metrics.hasSecurityPolicy ? '✔️' : '❌' }}
+            Readme:
+            {{
+              metrics.hasReadme === true
+                ? '✔️'
+                : metrics.hasReadme === false
+                  ? '❌'
+                  : 'N/A'
+            }}
+          </li>
+          <li>
+            Code of Conduct:
+            {{
+              metrics.hasCodeOfConduct === true
+                ? '✔️'
+                : metrics.hasCodeOfConduct === false
+                  ? '❌'
+                  : 'N/A'
+            }}
+          </li>
+          <li>
+            Security Policy:
+            {{
+              metrics.hasSecurityPolicy === true
+                ? '✔️'
+                : metrics.hasSecurityPolicy === false
+                  ? '❌'
+                  : 'N/A'
+            }}
           </li>
         </ul>
       </div>
 
       <div class="scorecard col-span-full">
         <h3 class="text-lg font-semibold mb-2">Scorecard Checks</h3>
-        <div v-if="metrics.scorecardChecks.length">
+        <div v-if="metrics.scorecardChecks && metrics.scorecardChecks.length">
           <ul class="space-y-4">
             <li
               v-for="check in metrics.scorecardChecks"
