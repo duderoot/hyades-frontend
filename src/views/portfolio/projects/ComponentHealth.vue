@@ -117,14 +117,15 @@
               :key="check.name"
               class="p-3 border rounded"
             >
-              <h4 class="font-semibold flex justify-between">
-                <span>{{ check.name }}</span>
-                <span class="score">{{ check.score }}/10</span>
-              </h4>
+              <h5 class="font-semibold flex justify-between">
+                <span>
+                  <strong>{{ check.name }}:</strong> {{ check.score }}/10
+                </span>
+              </h5>
+              <p class="text-sm mb-1 font-italic">{{ check.description }}</p>
               <p class="text-sm mb-1">
                 <strong>Reason:</strong> {{ check.reason }}
               </p>
-              <p class="text-sm mb-1">{{ check.description }}</p>
               <a
                 :href="check.documentationUrl"
                 target="_blank"
