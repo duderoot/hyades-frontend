@@ -121,6 +121,7 @@
                 <span>{{ check.name }}</span>
                 <span class="score">{{ check.score }}/10</span>
               </h4>
+              <p class="text-sm mb-1"><strong>Reason:</strong> {{ check.reason }}</p>
               <p class="text-sm mb-1">{{ check.description }}</p>
               <a
                 :href="check.documentationUrl"
