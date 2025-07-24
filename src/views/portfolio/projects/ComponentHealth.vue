@@ -7,7 +7,7 @@
         <dl>
           <div class="mb-2">
             <dt class="font-semibold">Package URL</dt>
-            <dd>{{ metrics.purl ?? 'N/A' }}</dd>
+            <dd>{{ metrics.purlCoordinates ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Stars</dt>
