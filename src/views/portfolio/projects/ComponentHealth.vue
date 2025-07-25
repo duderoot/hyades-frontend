@@ -51,7 +51,7 @@
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Scorecard Score</dt>
-            <dd>{{ metrics.scorecardScore.toFixed(2) ?? 'N/A' }}</dd>
+            <dd>{{ metrics.scorecardScore?.toFixed(2) ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Average Issue Age (days)</dt>
@@ -165,8 +165,8 @@ export default {
   },
   computed: {
     formattedLastCommit() {
-      if (!this.metrics || !this.metrics.lastCommit) return 'N/A';
-      return new Date(this.metrics.lastCommit).toLocaleString();
+      const date = new Date(this.metrics.lastCommit);
+      return isNaN(date.getTime()) ? 'N/A' : date.toLocaleString();
     },
   },
   methods: {
