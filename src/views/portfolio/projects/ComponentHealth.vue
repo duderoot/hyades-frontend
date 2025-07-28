@@ -42,7 +42,7 @@
             <dd>{{ metrics.busFactor ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
-            <dt class="font-semibold">Dependents</dt>
+            <dt class="font-semibold">Known Dependents</dt>
             <dd>{{ metrics.dependents ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
@@ -51,7 +51,7 @@
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Scorecard Score</dt>
-            <dd>{{ metrics.scorecardScore?.toFixed(2) ?? 'N/A' }}</dd>
+            <dd>{{ metrics.scorecardScore?.toFixed(1) ?? 'N/A' }}</dd>
           </div>
           <div class="mb-2">
             <dt class="font-semibold">Average Issue Age (days)</dt>
@@ -152,6 +152,8 @@
 </template>
 
 <script>
+import common from '@/shared/common';
+
 export default {
   name: 'ComponentHealth',
   props: {
@@ -166,7 +168,9 @@ export default {
   computed: {
     formattedLastCommit() {
       const date = new Date(this.metrics.lastCommit);
-      return isNaN(date.getTime()) ? 'N/A' : date.toLocaleString();
+      return isNaN(date.getTime())
+        ? 'N/A'
+        : common.formatTimestamp(date.getTime(), true);
     },
   },
   methods: {
