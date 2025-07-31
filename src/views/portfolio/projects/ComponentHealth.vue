@@ -139,6 +139,26 @@
           <p>No scorecard checks available.</p>
         </div>
       </div>
+      <div
+        class="col-span-full text-center text-sm font-italic text-white-50 mt-4"
+      >
+        <p>
+          Project metadata is retrieved from the
+          <a href="https://deps.dev" target="_blank" class="underline"
+            >deps.dev</a
+          >
+          and
+          <a
+            href="https://docs.github.com/en/rest"
+            target="_blank"
+            class="underline"
+            >GitHub APIs</a
+          >.
+          <br />
+          This product uses data from deps.dev and GitHub APIs but is not
+          endorsed or certified by deps.dev or GitHub.
+        </p>
+      </div>
     </div>
 
     <div v-else-if="gotNoData" class="text-center py-10">
