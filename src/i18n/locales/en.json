@@ -538,7 +538,7 @@
     "grouped_vulnerabilities": "Grouped Vulnerabilities",
     "hashes": "Hashes",
     "hashes_short_desc": "Hash (MD5, SHA, SHA3, Blake2b, Blake3)",
-    "health": "Health & Quality",
+    "health": "Health",
     "health_no_scorecard_available": "No score",
     "home": "Home",
     "identifier": "Identifier",
