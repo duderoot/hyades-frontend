@@ -1,6 +1,9 @@
 <template>
   <div class="p-4 rounded shadow">
     <h2 class="text-xl font-bold mb-4">Component Health Metrics</h2>
+    <div class="mb-4 text-sm font-italic text-white-50">
+      Last updated: {{ formattedLastFetch ?? 'N/A' }}
+    </div>
 
     <div v-if="metrics" class="metrics grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="summary">
@@ -188,6 +191,12 @@ export default {
   computed: {
     formattedLastCommit() {
       const date = new Date(this.metrics.lastCommit);
+      return isNaN(date.getTime())
+        ? 'N/A'
+        : common.formatTimestamp(date.getTime(), true);
+    },
+    formattedLastFetch() {
+      const date = new Date(this.metrics.lastFetch);
       return isNaN(date.getTime())
         ? 'N/A'
         : common.formatTimestamp(date.getTime(), true);
