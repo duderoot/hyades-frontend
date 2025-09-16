@@ -190,12 +190,14 @@ export default {
   },
   computed: {
     formattedLastCommit() {
+      if (!this.metrics || !this.metrics.lastCommit) return 'N/A';
       const date = new Date(this.metrics.lastCommit);
       return isNaN(date.getTime())
         ? 'N/A'
         : common.formatTimestamp(date.getTime(), true);
     },
     formattedLastFetch() {
+      if (!this.metrics || !this.metrics.lastFetch) return 'N/A';
       const date = new Date(this.metrics.lastFetch);
       return isNaN(date.getTime())
         ? 'N/A'
